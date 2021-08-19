@@ -1,0 +1,311 @@
+Given a list of tuples arrange the elements based on the last value of the tuple
+Sample Input
+[(2, 5, 30), (1, 2, 7), (4, 4, 90), (2, 3,21), (2, 1, 4)]
+Sample Ouput
+[(2, 1, 4),  (1, 2, 7), (2, 3,21),(2, 5, 30), (4, 4, 90)]
+-----------------------
+solution:
+
+list_of_tuple = [(2, 5, 30), (1, 2, 7), (4, 4, 90), (2, 3,21), (2, 1, 4)]
+print(list_of_tuple)
+list_of_tuple.sort(key=lambda x:x[2])
+print(list_of_tuple)
+==========================================================================================================================================================================
+List Hopping
+Given a List of List of number hopping_list and a step_count, print the resulting list by dropping the elements between the step count. \
+
+Assumptions
+First element of the First list will always be the starting point. 
+There is only one pass (viz., once it reaches the end of the last list it does not have to start from the first again).
+
+Sample Input 1  
+hopping_list = [[1, 4, 5, 6, 8, 10], [65, 43, 23], [ 4, 23, 2,51] ]
+step_count = 2
+Sample Output 1
+[[1, 6] [65] [4, 51]] 
+
+Sample Input 2
+hopping_list = [[1, 4, 5, 6, 8, 10], [65, 43, 23], [ 4, 23, 2,51] ]
+step count = 3
+Sample Output 2
+[[1, 8],[23],[51]]
+----------------------
+solution:
+
+hopping_list = [[1, 4, 5, 6, 8, 10], [65, 43, 23], [ 4, 23, 2,51] ]
+step_count = 2
+#logic
+res = []
+size = sum (len(row) for row in hopping_list)
+
+d,pd = 0,0
+
+for i in range(len(hopping_list)):
+    tmp = []
+    for j in range(len(hopping_list[i])):
+        if d==pd:
+            tmp.append(hopping_list[i][j])
+            d = d+step_count+1
+            pd+=1
+        else:
+            pd+=1
+    res.append(tmp)
+print(res)
+=======================================================================================================================================================
+Given a string Print the count of each characters in the string.
+
+Sample Input
+
+data = "Sd@!@!@s_asdS}{}"
+Sample Output
+
+s: 4,
+@: 3,
+!: 2,
+d: 2,
+a : 1,
+_ : 1
+{ : 1
+} : 2
+
+
+------------------------
+
+solution:
+
+data = "Sd@!@!@s_asdS}{}"
+
+data = data.lower()
+print(data)
+counts = {}
+for c in data:
+    if c in counts:
+        counts[c] +=1
+    else:
+        counts[c] = 1
+for c in counts:
+    print(c,':',counts[c])
+
+========================================================================================================================================================
+Given a dictionary, arrange the dictionary based on the datatype of values in the DESCENDING ORDER based on the following used-defined precedence.
+
+ Let the order of precedence is Set > list > dict > str > int > float.
+
+Sample Input:
+
+{  
+    'key1': 4, 
+    'key2': 80.2, 
+    'key3': [1,4,5], 
+    'key4': {'name' : 'Lorel', 'age': 52},
+    'key5': 'Sample_text',
+    'key6': {3,53,23}
+} 
+
+Sample Output:
+{   
+    'key2': 80.2, 
+    'key1': 4,
+    'key5': 'Sample_text',
+    'key4': {'name' : 'Lorel', 'age': 52},
+    'key3': [1,4,5],
+    'key6': {3,53,23}
+}
+
+-----------------
+solution:
+
+mydictionary = {  
+    'key1': 4, 
+    'key2': 80.2, 
+    'key3': [1,4,5], 
+    'key4': {'name' : 'Lorel', 'age': 52},
+    'key5': 'Sample_text',
+    'key6': {3,53,23}
+}
+
+from collections import OrderedDict
+od = OrderedDict()
+mylist = [float,int,str,dict,list,set]
+
+for d in mylist:
+    for k in  mydictionary:
+        if type(mydictionary[k]) is d:
+            od[k] = mydictionary[k]
+print('{')
+for k,v in od.items():
+    print(k,":",v,',')
+print('}')
+
+===================================================================================================================================================
+Write program to get the below output.
+
+Input:
+list_1 = [1, 2, 3, 4, 5]
+list_2 = [4, 5, 6, 7, 8]
+​
+Output:
+result=[1, 2, 3, 6, 7, 8]
+
+
+-----------------------------
+solution:
+
+list_1 = [1, 2, 3, 4, 5]
+list_2 = [4, 5, 6, 7, 8]
+
+a = set(list_1)
+b = set(list_2)
+print(list(a.symmetric_difference(b)))
+
+
+====================================================================================================================================================
+Given a list of lists, each list has to be stripped from the index p, where p 's value equals the smallest number in the list.
+
+If p > length of the list -  Remove the list
+if p < 0 - retain the list only with entries > 0.
+# Sample Input
+list_strip = [ [3, 64, 23, 5, 78, 90], [ 23,53, 0, 23], [ 90,32,12 ], [-2, 0, 2, 5,29 ] ]
+​
+​
+#Sample Output
+"Stipped list": [ [ 5, 78, 90 ], [ 0, 23,23, 53 ], [ 2, 5, 29 ] ]
+
+
+
+--------------
+solution:
+list_strip = [ [3, 64, 23, 5, 78, 90], [ 23,53, 0, 23], [ 90,32,12 ], [-2, 0, 2, 5,29 ] ]
+
+res = []
+for i in list_strip:
+    p = min(i)
+    #print(p)
+    if p > len(i):
+        pass
+    elif p<0:
+        res.append([x for x in i if x>0])
+    else:
+        if p !=0:
+            a = i[p:]
+            a.sort()
+            res.append(a)
+        else:
+            a = i
+            a.sort()
+            res.append(a)
+print(res)
+
+====================================================================================================================================================
+Write a Python program to eliminate all empty lists from a given list of lists.
+The input will have a list of lists and the output should have the resulting list after eliminating empty lists from it.
+Sample Input:
+
+[[1,2,3],[],[4,5],[],[],[6,7,8]
+Sample Output:
+
+[[1, 2, 3], [4, 5], [6, 7, 8]]
+
+-------------
+solution:
+
+inp = [[1,2,3],[],[4,5],[],[],[6,7,8]]
+
+res = [ i for i in inp if i != [] ]
+print(res)
+
+==================================================================================================================================================
+Consider a nested dictionary as follows:
+
+{'Fruit': 1, 'Vegetable': {'Cabbage': 2, 'Cauliflower': 3}, 'Spices': 4}
+Your task is to flatten a nested dictionary and join the nested keys with the "_" character. 
+
+For the above dictionary, the flattened dictionary would be as follows:
+
+{'Fruit': 1, 'Vegetable_Cabbage': 2, 'Vegetable_Cauliflower': 3, 'Spices': 4}
+The input will have a nested dictionary.
+The output should have two lists. 
+
+The first list will have keys and the second list should have values. Both lists should be sorted.
+
+Sample Input:
+
+{'Fruit': 1, 'Vegetable': {'Cabbage': 2, 'Cauliflower': 3}, 'Spices': 4}
+Sample Output:
+
+['Fruit', 'Spices', 'Vegetable_Cabbage', 'Vegetable_Cauliflower']
+[1, 2, 3, 4]
+
+
+
+--------------
+solution:
+
+d = {'Fruit': 1, 'Vegetable': {'Cabbage': 2, 'Cauliflower': 3}, 'Spices': 4}
+
+k1 = []
+v1 = []
+for k,v in d.items():
+    if type(v) is dict:
+        for ik,iv in v.items():
+            k1.append(k+'_'+ik)
+            v1.append(iv)
+    else:
+        k1.append(k)
+        v1.append(v)
+        
+print(k1)
+print(v1)
+
+========================================================================================================================================================
+Write Python code to find elements common between the two lists. 
+The output list should exclude duplicate elements.  i.e. if both lists have 1 twice then the output list should have 1 only once.
+The input will contain two lines with two lists.
+The output should contain a list of common elements between the two input lists.
+
+Sample Input:
+
+[1,2,3,4,5]
+[4,5,6,7,8]
+Sample Output:
+
+[4, 5]
+
+------------
+solution:
+
+l1 = [1,2,3,4,5]
+l2 = [4,5,6,7,8]
+
+a = set(l1)
+b = set(l2)
+
+print(list(a.intersection(b)))
+
+=======================================================================================================================================================
+Use below code to load the data from the json file and do the mentioned task.
+
+import json
+with open('sample_json.json') as f:
+  employee_data = json.load(f)
+​
+Extract Employee name whose salary > 300000
+Collect a list of tuples of form (id, employee_name, employee_salary) whose age > 60.	
+#Sample Output
+(1,Tiger Nixon, 320800)
+(2,Garrett Winters, 170750)
+...
+  Hint:  Use functions like Map and Filter
+
+
+ --------------
+ solution:
+
+ import json
+with open('sample_json.json') as f:
+  employee_data = json.load(f)
+
+
+temp_res = list(filter(lambda x: x['employee_salary'] > 300000, employee_data))
+res = list(map(lambda x: (x['id'],x['employee_name'],x['employee_salary']), temp_tres))
+print(res)
