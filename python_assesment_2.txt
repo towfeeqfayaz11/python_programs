@@ -1,0 +1,70 @@
+Q1:
+Capitalizing the Names. (1 Mark)
+You have been asked to ensure that the first and last names of employees in an organisation begin with a capital letter in their identity cards. 
+Write a function capitalize_words to do convert the name in the right format.
+neil george #get as input
+Neil George
+
+john josewa solomon krishnan #get as input
+John Josewa Solomon Krishnan
+
+ANS:
+names = list(input().split())
+new_names = []
+for i in names:
+    new_names.append(i.capitalize())
+print(" ".join(new_names))
+
+--------------
+Q2:
+List & Dict Comprehension (2 Marks)
+Create a dictionary, with single line of code whose ,
+
+keys are odd numbers till 99
+values are square of its respective key.
+#Sample output
+{ 1: 1, 3: 9, 5: 25,...... }
+From the created dictionary get the keys, whose values >= 3000
+
+
+ANS:
+# ditionary with odd keys and values as square of odd keys
+my_dictionary = { i:i*i for i in range(1,100) if i%2 != 0 }
+print(my_dictionary)
+
+# list with keys of dictionary whose value is >= 3000
+my_list = [k for k,v in my_dictionary.items() if v >= 3000]
+print(my_list)
+
+
+---------------
+
+Q5:
+Tuple to Dict (3 Marks)
+Given a list of tuples, write a function to convert the tuples into Dictionary. 
+
+Always use the first element of each tuple as key.
+If there are duplicates in the keys, add the values as list
+#Sample input
+data = [('key1',9), ('key2',23),('key1','hello'), ('key3','Bilbo')]
+​
+#Sample output
+{'key1': [9, 'hello'], 'key2': 23, 'key3': 'Bilbo'}
+
+
+ANS:
+data = [('key1',9), ('key2',23),('key1','hello'),('key3','Bilbo')]
+keys = []
+values = []
+for index, tup in enumerate(data):
+    if tup[0] in keys:
+        i = keys.index(tup[0])
+        temp = [values[i]]
+        values[i] = temp
+        values[i].append(tup[1])
+    else:
+        keys.append(tup[0])
+        values.append(tup[1])
+        
+result = dict(zip(keys, values))
+print(result)
